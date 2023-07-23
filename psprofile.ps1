@@ -13,3 +13,24 @@ Set-PSReadLineOption -Colors @{
 	ContinuationPrompt = "Blue"
 	Default = "Blue"
 }
+
+## Alias {{{
+
+Function Move-Up { Set-Location .. }
+Function Move-UpUp { Set-Location ..\.. }
+Function Move-UpUpUp { Set-Location ..\..\.. }
+
+Set-Alias -Name '..' -Value Move-Up
+Set-Alias -Name '...' -Value Move-UpUp
+Set-Alias -Name '....' -Value Move-UpUpUp
+
+Set-Alias -Name 'll' -Value Get-ChildItem
+
+Function Get-GitStatus { git status }
+Set-Alias -Name 'gti' -Value git
+Set-Alias -Name 'gs' -Value Get-GitStatus
+
+
+## }}}
+
+# vim: fdm=marker
