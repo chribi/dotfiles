@@ -7,6 +7,8 @@
 # ```
 eval "$(oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json")"
 
+export RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
+
 ## Alias {{{
 
 alias ..="cd .."
