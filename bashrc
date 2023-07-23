@@ -8,6 +8,7 @@
 eval "$(oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json")"
 
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
+export BAT_CONFIG_PATH="$DOTFILES/batrc"
 
 ## Alias {{{
 

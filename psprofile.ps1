@@ -6,6 +6,7 @@
 oh-my-posh init pwsh --config "$DOTFILES/ohmyposh.json" | Invoke-Expression
 
 $env:RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
+$env:BAT_CONFIG_PATH="$DOTFILES/batrc"
 
 # Fix PS colors for Solarized Light
 Set-PSReadLineOption -Colors @{

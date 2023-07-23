@@ -1,0 +1,5 @@
+--theme="ansi"
+
+--map-syntax ".props:xml"
+--map-syntax ".targets:xml"
+--map-syntax ".*proj:xml"
