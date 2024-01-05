@@ -21,6 +21,10 @@ alias ll="ls -l"
 alias gti=git
 alias add="git add"
 alias gs="git status"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gc="git commit"
+alias gca="git commit -a"
 alias amend="git commit --amend"
 alias amendwq="git commit --amend --no-edit"
 
