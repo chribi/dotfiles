@@ -5,7 +5,15 @@
 # DOTFILES=/path/to/dotfiles
 # source $DOTFILES/bashrc
 # ```
-eval "$(oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json")"
+
+# Instead of using
+# $ eval "$(oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json")"
+# we cache the result and source it.
+# This works fine when not fiddling around with the config.
+if [ ! -f "$DOTFILES/ohmyposh.bash" ]; then
+   oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json" > "$DOTFILES/ohmyposh.bash"
+fi
+source "$DOTFILES/ohmyposh.bash"
 
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
 export BAT_CONFIG_PATH="$DOTFILES/batrc"
