@@ -124,6 +124,7 @@
       "type": "prompt"
     }
   ],
+  "osc99": true,
   "console_title_template": "{{if .Root}} \u26a1 {{end}}{{ .Folder }} ",
   "version": 2
 }
