@@ -18,6 +18,7 @@ Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 
 $env:RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
 $env:BAT_CONFIG_PATH="$DOTFILES/batrc"
+$env:FZF_CTRL_T_COMMAND="fd -t f"
 
 # Fix PS colors for Solarized Light
 Set-PSReadLineOption -Colors @{
@@ -26,6 +27,10 @@ Set-PSReadLineOption -Colors @{
 	Type = "DarkYellow"
 	ContinuationPrompt = "Blue"
 	Default = "Blue"
+}
+
+Get-ChildItem -Path "$DOTFILES/completions/ps1" -Filter *.ps1 | ForEach-Object {
+    . $_.FullName
 }
 
 ## Alias {{{

@@ -11,7 +11,7 @@
 # we cache the result and source it.
 # This works fine when not fiddling around with the config.
 if [ ! -f "$DOTFILES/ohmyposh.bash" ]; then
-   oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json" > "$DOTFILES/ohmyposh.bash"
+    oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json" > "$DOTFILES/ohmyposh.bash"
 fi
 source "$DOTFILES/ohmyposh.bash"
 
@@ -19,6 +19,11 @@ eval "$(zoxide init bash)"
 
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
 export BAT_CONFIG_PATH="$DOTFILES/batrc"
+export FZF_CTRL_T_COMMAND="fd -t f"
+
+for completion in $DOTFILES/completions/bash/*.bash ; do
+    source "$completion"
+done
 
 ## Alias {{{
 
