@@ -15,6 +15,8 @@ if [ ! -f "$DOTFILES/ohmyposh.bash" ]; then
 fi
 source "$DOTFILES/ohmyposh.bash"
 
+eval "$(zoxide init bash)"
+
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
 export BAT_CONFIG_PATH="$DOTFILES/batrc"
 

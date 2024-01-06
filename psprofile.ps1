@@ -4,6 +4,7 @@
 # . "$DOTFILES/psprofile.ps1"
 # ```
 oh-my-posh init pwsh --config "$DOTFILES/ohmyposh.json" | Invoke-Expression
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 $env:RIPGREP_CONFIG_PATH="$DOTFILES/ripgreprc"
 $env:BAT_CONFIG_PATH="$DOTFILES/batrc"
