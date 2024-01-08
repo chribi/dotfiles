@@ -25,6 +25,13 @@ for completion in $DOTFILES/completions/bash/*.bash ; do
     source "$completion"
 done
 
+# ripgrep and edit
+function rge() {
+    mkdir -p "$DOTFILES/tmp"
+    rg --vimgrep "$@" > "$DOTFILES/tmp/rgqf"
+    nvim -q "$DOTFILES/tmp/rgqf" '+Trouble quickfix'
+}
+
 ## Alias {{{
 
 alias ..="cd .."
