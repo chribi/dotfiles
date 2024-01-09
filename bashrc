@@ -25,12 +25,22 @@ for completion in $DOTFILES/completions/bash/*.bash ; do
     source "$completion"
 done
 
+## Neovim stuff {{{
+
 # ripgrep and edit
 function rge() {
     mkdir -p "$DOTFILES/tmp"
     rg --vimgrep "$@" > "$DOTFILES/tmp/rgqf"
     nvim -q "$DOTFILES/tmp/rgqf" '+Trouble quickfix'
 }
+
+function nvdiff() {
+    nvim "+DiffviewOpen $@"
+}
+
+alias nvgit="nvim +Git"
+
+## }}}
 
 ## Alias {{{
 
