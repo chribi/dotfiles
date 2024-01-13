@@ -11,7 +11,7 @@
 # we cache the result and source it.
 # This works fine when not fiddling around with the config.
 if [ ! -f "$DOTFILES/ohmyposh.bash" ]; then
-    oh-my-posh.exe init bash --config "$DOTFILES/ohmyposh.json" > "$DOTFILES/ohmyposh.bash"
+    oh-my-posh init bash --config "$DOTFILES/ohmyposh.json" > "$DOTFILES/ohmyposh.bash"
 fi
 source "$DOTFILES/ohmyposh.bash"
 
@@ -61,5 +61,11 @@ alias amend="git commit --amend"
 alias amendwq="git commit --amend --no-edit"
 
 ## }}}
+
+# Better colors for ls under solarized colorscheme
+# di = directory
+# ex = executable
+# ln = link
+export LS_COLORS='di=0;34:ex=0;32:ln=0;33:*.zip=0;31:*.gz=0;31'
 
 # vim: fdm=marker
