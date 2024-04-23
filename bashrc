@@ -60,6 +60,15 @@ alias gca="git commit -a"
 alias amend="git commit --amend"
 alias amendwq="git commit --amend --no-edit"
 
+__git_complete add _git_add
+__git_complete gs _git_status
+__git_complete gd _git_diff
+__git_complete gds _git_diff
+__git_complete gc _git_commit
+__git_complete gca _git_commit
+__git_complete amend _git_commit
+__git_complete amendwq _git_commit
+
 ## }}}
 
 ## Git bindings from https://stackoverflow.com/a/37007733 {{{
