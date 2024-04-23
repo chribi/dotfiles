@@ -47,6 +47,7 @@ alias nvgit="nvim +Git"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias cdg='cd  $(git rev-parse --show-toplevel)'
 
 alias ll="ls -l"
 
