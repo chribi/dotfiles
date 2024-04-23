@@ -104,6 +104,21 @@ bind '"\C-g\C-h": "$(bind_git_hashes)\e\C-e\er"'
 
 ## }}}
 
+## {{{ WIKI helpers
+
+export WIKIROOT=~/wiki
+function wiki() {
+  (
+    local wikifiles selected
+    cd $WIKIROOT
+    wikifiles=$(cd $WIKIROOT && fd -e md)
+    selected=$(echo "$wikifiles" | fzf --height 60% --ansi --preview 'bat --color=always {}')
+    bat "$selected" --style plain
+  )
+}
+
+## }}}
+
 # Better colors for ls under solarized colorscheme
 # di = directory
 # ex = executable
