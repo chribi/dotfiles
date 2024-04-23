@@ -109,10 +109,15 @@ bind '"\C-g\C-h": "$(bind_git_hashes)\e\C-e\er"'
 export WIKIROOT=~/wiki
 function wiki() {
   (
-    local wikifiles selected
+    local files selected
     cd $WIKIROOT
-    wikifiles=$(cd $WIKIROOT && fd -e md)
-    selected=$(echo "$wikifiles" | fzf --height 60% --ansi --preview 'bat --color=always {}')
+    files=$(fd -e md -x sh -c $'tags=$( rg \'(^|\s)(#[-\w\d]+)\' --only-matching --replace \'$2\' $1 ) ; printf "$(basename $1)\t\033[31m$(echo $tags)\033[0m\n"' fd-exec {} \; )
+
+    selected=$(echo "$files" |
+      fzf --ansi \
+        --preview 'bat --color=always {1}' \
+        --height 60% --layout=reverse |
+      awk '{print $1}')
     bat "$selected" --style plain
   )
 }
