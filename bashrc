@@ -104,25 +104,8 @@ bind '"\C-g\C-h": "$(bind_git_hashes)\e\C-e\er"'
 
 ## }}}
 
-## {{{ WIKI helpers
-
 export WIKIROOT=~/wiki
-function wiki() {
-  (
-    local files selected
-    cd $WIKIROOT
-    files=$(fd -e md -x sh -c $'tags=$( rg \'(^|\s)(#[-\w\d]+)\' --only-matching --replace \'$2\' $1 ) ; printf "$(basename $1)\t\033[31m$(echo $tags)\033[0m\n"' fd-exec {} \; )
-
-    selected=$(echo "$files" |
-      fzf --ansi \
-        --preview 'bat --color=always {1}' \
-        --height 60% --layout=reverse |
-      awk '{print $1}')
-    bat "$selected" --style plain
-  )
-}
-
-## }}}
+source "$DOTFILES/wiki.sh"
 
 # Better colors for ls under solarized colorscheme
 # di = directory
