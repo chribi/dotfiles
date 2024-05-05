@@ -2,7 +2,7 @@
 
 # In .bashrc:
 # ```sh
-# DOTFILES=/path/to/dotfiles
+# export DOTFILES=/path/to/dotfiles
 # source $DOTFILES/bashrc
 # ```
 

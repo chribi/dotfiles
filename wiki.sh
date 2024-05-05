@@ -18,7 +18,11 @@ wiki() {
             ;;
 
         update)
-            wiki-update-all "$@"
+            wiki-update "$@"
+            ;;
+
+        remove)
+            wiki-remove "$@"
             ;;
 
         *)
@@ -27,9 +31,20 @@ wiki() {
     esac
 }
 
+__wiki_cd() {
+    cd ${WIKIROOT:-~/wiki}
+}
+
 __wiki_get_tags() {
     local wikifile="$1"
     rg '^\s*Tags: (.*)' --ignore-case --only-matching --replace '$1' "$wikifile" | tr '\n' ' ' | xargs
+}
+
+__wiki_write_tags() {
+    local wikifile="$1"
+    local tags=$(__wiki_get_tags "$wikifile")
+    echo "Updating $wikifile tags: $tags"
+    echo -e "$wikifile:$tags" >> .db/tags
 }
 
 __wiki_fzf() {
@@ -68,7 +83,7 @@ wiki-new() {
     fi
 
     (
-        cd ${WIKIROOT:-~/wiki}
+        __wiki_cd
         if [[ -e $file ]]; then
             echo "'$file' already exists"
             return
@@ -82,12 +97,33 @@ wiki-new() {
 $tagline
 EOF
         "${EDITOR:-nvim}" "$file"
+
+        wiki-update "$file"
     )
+}
+
+wiki-update() {
+    local file="$1"
+    if [[ -z "$file" ]]; then
+        wiki-update-all
+    else
+        (
+            __wiki_cd
+
+            # Remove entry from db
+            sed -i "\|$file:|d" .db/tags
+            if [[ -e "$file" ]]; then
+                __wiki_write_tags "$file"
+            else
+                echo "$file removed"
+            fi
+        )
+    fi
 }
 
 wiki-update-all() {
     (
-        cd ${WIKIROOT:-~/wiki}
+        __wiki_cd
 
         if [[ ! -d .db ]]; then
             mkdir .db
@@ -98,28 +134,43 @@ wiki-update-all() {
         fi
 
         fd -e md | while read -r wikifile ; do
-            tags=$(__wiki_get_tags $wikifile)
-            echo "Updating $wikifile > $tags"
-            echo -e "$wikifile:$tags" >> .db/tags
+            __wiki_write_tags "$wikifile"
         done
     )
 }
 
 wiki-show() {
     (
-        cd ${WIKIROOT:-~/wiki}
+        __wiki_cd
 
         selected=$(__wiki_fzf)
-        bat "$selected" --style=plain
+        if [[ ! -z "$selected" ]]; then
+            bat "$selected" --style=plain
+        fi
     )
 }
 
 wiki-edit() {
     (
-        cd ${WIKIROOT:-~/wiki}
+        __wiki_cd
 
         selected=$(__wiki_fzf)
-        "${EDITOR:-nvim}" "$selected"
+        if [[ ! -z "$selected" ]]; then
+            "${EDITOR:-nvim}" "$selected"
+            wiki-update "$selected"
+        fi
+    )
+}
+
+wiki-remove() {
+    (
+        __wiki_cd
+
+        selected=$(__wiki_fzf)
+        if [[ ! -z "$selected" ]]; then
+            rm "$selected"
+            wiki-update "$selected"
+        fi
     )
 }
 
